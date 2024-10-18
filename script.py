@@ -1,29 +1,29 @@
 import os
 import shutil
 
-# Répertoire contenant les fichiers de sortie existants
-output_dir = "/home/pdessain/Bureau/Semantic_seg/Exemples/masks+slic"
-# Répertoire contenant les images d'entrée
-image_dir = "/home/pdessain/Bureau/Semantic_seg/FloodNet_images/queries"
-# Répertoire de destination pour les fichiers copiés
-dest_dir = "/home/pdessain/Bureau/Semantic_seg/Exemples/queries"
+# Directory containing the existing output files
+output_dir = "Semantic_seg/Exemples/masks+slic"
+# Directory containing the input images
+image_dir = "Semantic_seg/FloodNet_images/queries"
+# Destination directory for copied files
+dest_dir = "Semantic_seg/Exemples/queries"
 
-# Créer le répertoire de destination s'il n'existe pas
+# Create the destination directory if it doesn't exist
 os.makedirs(dest_dir, exist_ok=True)
 
-# Parcourir chaque fichier de sortie existant
+# Iterate over each existing output file
 for output_file in os.listdir(output_dir):
     if output_file.endswith("_mask_slic.png"):
-        # Extraire l'identifiant xxxxx
-        basename = output_file[:-14]  # Enlever "_mask_slic.png"
+        # Extract the identifier xxxxx
+        basename = output_file[:-14]  # Remove "_mask_slic.png"
         identifier = basename.split('_')[1]
         
-        # Construire le chemin du fichier d'image d'entrée correspondant
+        # Construct the path to the corresponding input image
         img_path = os.path.join(image_dir, f"query_{identifier}.png")
         
-        # Vérifier si l'image d'entrée existe
+        # Check if the input image exists
         if os.path.isfile(img_path):
-            # Copier l'image d'entrée vers le répertoire de destination
+            # Copy the input image to the destination directory
             shutil.copy(img_path, dest_dir)
         else:
-            print(f"Image d'entrée {img_path} introuvable, sautée.")
+            print(f"Input image {img_path} not found, skipped.")
